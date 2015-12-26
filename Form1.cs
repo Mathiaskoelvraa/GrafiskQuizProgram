@@ -39,8 +39,8 @@ namespace WindowsFormsApplication1
 
 
             datahandler.VælgSygdomAtSpørgeOm();
-
-            spørgsmålsviser.Text = AskQuestion(datahandler.sygdom, datahandler.kandidatsymptomer);
+            var næstesygdom = datahandler.NuværendeSygdom();
+            spørgsmålsviser.Text = AskQuestion(næstesygdom, datahandler.kandidatsymptomer);
 
             button2.Text = datahandler.kandidatsymptomer[0];
 
@@ -83,16 +83,16 @@ namespace WindowsFormsApplication1
         private void button6_Click(object sender, EventArgs e)
         {
             List<Button> buttonlist = new List<Button>() { button2, button3, button4, button5 };
-
+            var sygdom = datahandler.NuværendeSygdom();
             for (int i = 0; i < 4; i++)
             {
-                if (!buttonlist[i].Enabled && datahandler.korrektesymptomer.Contains(datahandler.kandidatsymptomer[i]))
+                if (!buttonlist[i].Enabled && datahandler.korrektesymptomer[sygdom].Contains(datahandler.kandidatsymptomer[i]))
                 {
                     buttonlist[i].BackColor = Color.LightGreen;
                     buttonlist[i].Enabled = true;
                     
                 }
-                else if (buttonlist[i].Enabled && !datahandler.korrektesymptomer.Contains(datahandler.kandidatsymptomer[i]))
+                else if (buttonlist[i].Enabled && !datahandler.korrektesymptomer[sygdom].Contains(datahandler.kandidatsymptomer[i]))
                 {
                     buttonlist[i].BackColor = Color.LightGreen;
                     buttonlist[i].Enabled = true;
@@ -101,6 +101,8 @@ namespace WindowsFormsApplication1
                     buttonlist[i].BackColor = Color.Red;
                     buttonlist[i].Enabled = true;
             }
+
+            datahandler.GåTilNæsteSygdom();
         }
     }
 }
