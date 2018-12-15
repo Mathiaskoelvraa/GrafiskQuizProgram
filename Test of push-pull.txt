@@ -1,3 +1,5 @@
 Anden test af Git logikken :)
 
 Tredie test af logikken :)
+
+Fjerde test, nu med pull request
